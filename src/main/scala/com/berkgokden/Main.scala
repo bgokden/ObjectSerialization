@@ -1,6 +1,6 @@
 package com.berkgokden
 
-import com.berkgokden.model.User
+import com.berkgokden.model.{MapAnyCaseClass, User}
 import com.fasterxml.jackson.databind.exc.InvalidFormatException
 import utils.MarshallableImplicits._
 
@@ -45,5 +45,12 @@ object Main extends App {
   } catch {
     case e: InvalidFormatException => println(e.getMessage)
   }
+
+  val a = MapAnyCaseClass("a", Map("b" -> 3, "d" -> Map("da" -> 1, "db" -> "str1"), "c" -> "str2" , "testList" -> List("1","2","3")))
+
+  val aYaml = a.toYaml
+  println(aYaml)
+
+  val aBack = aYaml.fromYaml[MapAnyCaseClass]
 
 }
